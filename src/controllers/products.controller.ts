@@ -12,6 +12,17 @@ async function registerProduct(req: Request, res: Response) {
   res.status(201).json(data);
 }
 
+async function listProducts(_req: Request, res: Response) {
+  const { status, data } = await productsService.listProducts();
+
+  if (status) {
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  res.status(200).json(data);
+}
+
 export default {
   registerProduct,
+  listProducts,
 };
