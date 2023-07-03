@@ -6,9 +6,9 @@ import loginRouter from './routers/login.router';
 const app = express();
 
 app.use(express.json());
-app.use(loginRouter);
 app.use(productsRouter);
 app.use(ordersRouter);
+app.use(loginRouter);
 
 app.get('/', (_req: Request, res: Response) => {
   res.status(200).send('TrybeSmith is OPEN for business!');

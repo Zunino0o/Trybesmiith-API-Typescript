@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import { ServiceResponse } from '../types/ServiceResponse';
 import { Login } from '../types/Login';
 import { Token } from '../types/Token';
@@ -11,7 +12,7 @@ async function login(payload: Login): Promise<ServiceResponse<Token>> {
 
   const foundUser = await UserModel.findOne({ where: { username: payload.username } });
 
-  if (!foundUser || foundUser.dataValues.password !== payload.password) {
+  if (!foundUser || !bcrypt.compareSync(payload.password, foundUser.dataValues.password)) {
     return {
       status: 'UNAUTHORIZED',
       data: { message: 'Username or password invalid' },
