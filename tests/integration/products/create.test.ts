@@ -16,10 +16,10 @@ describe('POST /products', function () {
       const requestBody = productsMock.validInput;
       sinon.stub(productsService, 'registerProduct').resolves({ status: null, data: productsMock.validOutput })
 
-      const response = await chai.request(app).post('/products').send(requestBody);
+      const { status, body } = await chai.request(app).post('/products').send(requestBody);
 
-      expect(response.status).to.equal(201);
-      expect(response.body).to.deep.equal(productsMock.validOutput);
+      expect(status).to.equal(201);
+      expect(body).to.deep.equal(productsMock.validOutput);
     })
   })
  
